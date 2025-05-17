@@ -100,27 +100,28 @@ SMODS.Joker{
         if context.joker_main then 
             local modifier = math.random(0, 15)
             local selection = math.random(1,100)
+            
             if selection <= 75 then
                 return{
                 Xmult_mod = modifier,
                 message = 'X' .. modifier,
-                colour=G.C.MULT,
-                message = 'ANYTHING FOR YOU VERO',
                 colour=G.C.MULT
+                message = 'ANYTHING FOR YOU VERO'
+                colour = G.C.MULT
                 }
             elseif selection > 75 and selection <= 95 then
                 return{
-                mult = modifier,
-                message = 'ANYTHING FOR YOU VERO',
-                colour=G.C.MULT
+                mult = modifier
+                message = 'ANYTHING FOR YOU VERO' --- WHY THE FUCK DOES IT SHOW THE MESSAGE FOR THIS BUT NOT FOR THE OTHER TWO????????????????????????
+                colour = G.C.MULT
                 }
             else 
                 return{
                 chips = modifier,
                 message = '+' .. modifier,
-                colour=G.C.CHIPS,
-                message = 'ANYTHING FOR YOU VERO',
                 colour=G.C.CHIPS
+                message = 'ANYTHING FOR YOU VERO'
+                colour = G.C.MULT
                 }
             end
         end
@@ -244,7 +245,7 @@ SMODS.Joker{
         if context.joker_main then --- THIS SHITS BROKEN AS FUCK I GOTTA GO EAT THOUGH SO I FIX LATER!!!!!!!!
             return {
                 chips = card.ability.extra.chips,
-                message = '+' .. card.ability.extra.chips .. ' GLIZZY OVERLOAD',
+                message = 'GLIZZY OVERLOAD',
                 colour = G.C.CHIPS
             }
         end
