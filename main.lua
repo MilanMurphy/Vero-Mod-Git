@@ -125,9 +125,9 @@ SMODS.Joker{
     loc_txt = {        
         name = 'Steel Reaper',
         text = {
-            '{C:mult}+#2#{} mult',
+            '{C:mult}+#1#{} mult.',
             'At the end of each round,',
-            '{C:green}1 in #1#{} chance to remove all jokers in hand'
+            '{C:green}#2# in #3#{} chance to remove all jokers'
         } 
     },
     atlas = 'Vero',
@@ -136,7 +136,7 @@ SMODS.Joker{
     rarity = 1  ,
     cost = 2,
     config = { extra = {
-        odds = 1,
+        odds = 20,
         mult = 30   
         } 
     },
@@ -144,23 +144,21 @@ SMODS.Joker{
         return {vars = {card.ability.extra.mult, (G.GAME.probabilities.normal or 1), card.ability.extra.odds}}
     end,
     calculate = function(self,card,context)
-        if context.joker_main then
-            return {
-                mult = card.ability.extra.mult
-            }
-        end
-        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-            if pseudorandom('steelreaper') < G.GAME.probabilities.normal / card.ability.extra.odds then
-                for i = 1, #G.jokers.cards do
-                    if G.jokers.cards[i] ~= card and not G.jokers.cards[i].ability.eternal and not G.jokers.cards[i].getting_sliced then
-                        destructable_jokers[#destructable_jokers + 1] =
-                            G.jokers.cards[i]
+        
+        if context.end_of_round and not context.blueprint then
+        if pseudorandom('veroboarder') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                for _, area in ipairs({G.jokers}) do
+                    for _, other_card in ipairs(area.cards) do
+                        other_card:start_dissolve()
                     end
-                end
-                for i = 1, #destructable_jokers do
-                    destructable_jokers[i]:destroy()
                 end
             end
         end
+        if context.joker_main then
+            return {
+            mult = card.ability.extra.mult
+            }
+        end
+    
     end
 }
