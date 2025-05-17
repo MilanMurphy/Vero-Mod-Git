@@ -78,7 +78,7 @@ SMODS.Joker{
     loc_txt = {        --- 75% chance to give xmult, 20% chance to give +mult, 5% chance to give +chips.
         name = 'ChatGPT OG',
         text = {
-            'Asks {C:green}Chat GPT{}',
+            'Asks {C:green}ChatGPT{}',
             'what {C:mult}mult{} this joker',
             'should have'
         } 
@@ -104,17 +104,20 @@ SMODS.Joker{
                 return{
                 Xmult_mod = modifier,
                 message = 'X' .. modifier,
-                colour=G.C.MULT
+                colour=G.C.MULT,
+                message = 'ANYTHING FOR YOU VERO'
                 }
             elseif selection > 75 and selection <= 95 then
                 return{
                 mult = modifier,
+                message = 'ANYTHING FOR YOU VERO'
                 }
             else 
                 return{
                 chips = modifier,
                 message = '+' .. modifier,
-                colour=G.C.CHIPS
+                colour=G.C.CHIPS,
+                message = 'ANYTHING FOR YOU VERO'
                 }
             end
         end
@@ -162,5 +165,45 @@ SMODS.Joker{
             }
         end
     
+    end
+}
+
+SMODS.Joker{
+    key = 'dragonfruitpack',
+    loc_txt = {        
+        name = 'Dragonfruit Pack',
+        text = {
+            '{X:mult,C:white}X#1#{} mult',
+            '{C:attention}-#2#{} hand size',
+            '{C:dark_edition,s:1.5}"that shi got me FUCKED!"{}'
+        } 
+    },
+    atlas = 'Vero',
+    blueprint_compat = false,
+    pos = {x = 4, y = 0},
+    rarity = 2,
+    cost = 3,
+    config = { extra = {
+        xmult = 20,
+        h_size = 5
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.xmult, card.ability.extra.h_size}}
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.hand:change_size(-card.ability.extra.h_size)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(card.ability.extra.h_size)
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                Xmult_mod = card.ability.extra.xmult,
+                message = 'X' .. card.ability.extra.xmult,
+                colour=G.C.MULT
+            }
+        end
     end
 }
