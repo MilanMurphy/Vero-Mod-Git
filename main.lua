@@ -10,7 +10,8 @@ SMODS.Joker{
     loc_txt = {
         name = 'Vero Boarder',
         text = {
-            '{C:green}#2# in #3#{} chance to give {X:mult,C:white}X#1#{} mult'
+            '{C:green}#2# in #3#{} chance',
+            'to give {X:mult,C:white}X#1#{} mult'
         } 
     },
     atlas = 'Vero',
@@ -77,9 +78,9 @@ SMODS.Joker{
     loc_txt = {        --- 75% chance to give xmult, 20% chance to give +mult, 5% chance to give +chips.
         name = 'ChatGPT OG',
         text = {
-            'Ask {C:green} Chat GPT{}',
+            'Asks {C:green}Chat GPT{}',
             'what {C:mult}mult{} this joker',
-            'should have.'
+            'should have'
         } 
     },
     atlas = 'Vero',
@@ -121,22 +122,23 @@ SMODS.Joker{
 }
 
 SMODS.Joker{
-    key = 'steelreaper',
+    key = 'steelreaper', --- +30 mult, gives an "odds" chance to remove all jokers at the end of each round.
     loc_txt = {        
         name = 'Steel Reaper',
         text = {
-            '{C:mult}+#1#{} mult.',
-            'At the end of each round,',
-            '{C:green}#2# in #3#{} chance to remove all jokers'
+            '{C:mult}+#1#{} mult',
+            '{C:green}#2# in #3#{} chance to',
+            'destroy all jokers in',
+            'hand at end of round'
         } 
     },
     atlas = 'Vero',
     blueprint_compat = false,
     pos = {x = 3, y = 0},
-    rarity = 1  ,
+    rarity = 1,
     cost = 2,
     config = { extra = {
-        odds = 20,
+        odds = 30,
         mult = 30   
         } 
     },
