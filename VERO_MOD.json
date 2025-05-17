@@ -1,0 +1,14 @@
+{
+    "id": "VERO_MOD",
+	"name": "Vero Mod",
+	"display_name": "Vero Mod",
+	"author": ["melonz"],
+	"description": "Make balatro more Vero",
+	"prefix": "vero",
+	"main_file": "main.lua",
+	"priority": 0,
+	"badge_colour": "FFFFFF",
+	"badge_text_colour": "000000",
+	"version": "1.0.0",
+	"dependencies": []
+}
