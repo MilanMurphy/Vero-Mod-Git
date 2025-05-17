@@ -6,7 +6,7 @@ SMODS.Atlas{
 }
 
 SMODS.Joker{
-    key = 'veroboarder',
+    key = 'veroboarder', --- 50% chance to give a 2x multiplier.
     loc_txt = {
         name = 'Vero Boarder',
         text = {
@@ -40,8 +40,8 @@ SMODS.Joker{
 }
 
 SMODS.Joker{
-    key = 'veroflip',
-    loc_txt = {
+    key = 'veroflip', --- Coin flip at the end of each round, if it lands on "0", your bankroll gets added to the round's reward
+    loc_txt = {       --- if it lands on "1", your bankroll gets substracted to the round's reward.
         name = 'Coin Flip',
         text = {
             'At the end of each round,',
@@ -73,12 +73,12 @@ SMODS.Joker{
 }
 
 SMODS.Joker{
-    key = 'chatgptog',
-    loc_txt = {
+    key = 'chatgptog', --- Rolls two random multipliers, one for chips/mult, another one for the selection of the modifier.
+    loc_txt = {        --- 75% chance to give xmult, 20% chance to give +mult, 5% chance to give +chips.
         name = 'ChatGPT OG',
         text = {
             'Ask {C:green} Chat GPT{}',
-            'what {C:red}mult{} this joker',
+            'what {C:mult}mult{} this joker',
             'should have.'
         } 
     },
@@ -117,8 +117,42 @@ SMODS.Joker{
                 message = '+' .. modifier,
                 colour=G.C.CHIPS
                 }
-            
-            
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = 'steelreaper',
+    loc_txt = {        
+        name = 'Steel Reaper',
+        text = {
+            '{C:mult}+#2#{} mult',
+            'At the end of each round,',
+            '{C:green}1 in #1#{} chance to remove all jokers in hand'
+        } 
+    },
+    atlas = 'Vero',
+    blueprint_compat = false,
+    pos = {x = 3, y = 0},
+    rarity = 0,
+    cost = 2,
+    config = { extra = {
+        odds = 20,
+        mult = 30   
+        } 
+    },
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.mult, (G.GAME.probabilities.normal or 1), card.ability.extra.odds}}
+    end,
+    calculate = function(self,card,context)
+        if context.joker_main then
+            if pseudorandom('steelreaper') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                return {
+                    mult = card.ability.extra.mult,
+                    message = '+' .. card.ability.extra.mult,
+                    colour=G.C.MULT
+                }
             end
         end
     end
