@@ -105,23 +105,20 @@ SMODS.Joker{
                 return{
                 Xmult_mod = modifier,
                 message = 'X' .. modifier,
-                colour=G.C.MULT
-                message = 'ANYTHING FOR YOU VERO'
+                colour = G.C.MULT,
+                message = 'ANYTHING FOR YOU VERO',
                 colour = G.C.MULT
                 }
             elseif selection > 75 and selection <= 95 then
                 return{
-                mult = modifier
-                message = 'ANYTHING FOR YOU VERO' --- WHY THE FUCK DOES IT SHOW THE MESSAGE FOR THIS BUT NOT FOR THE OTHER TWO????????????????????????
+                mult = modifier,
+                message = 'ANYTHING FOR YOU VERO', --- WHY THE FUCK DOES IT SHOW THE MESSAGE FOR THIS AND CHIPS BUT NOT FOR THE OTHER TWO????????????????????????
                 colour = G.C.MULT
                 }
             else 
                 return{
                 chips = modifier,
-                message = '+' .. modifier,
-                colour=G.C.CHIPS
-                message = 'ANYTHING FOR YOU VERO'
-                colour = G.C.MULT
+                message = 'ANYTHING FOR YOU VERO',
                 }
             end
         end
@@ -213,13 +210,13 @@ SMODS.Joker{
 }
 
 SMODS.Joker{
-    key = 'glizzyjoker', --- Scores "chips", chips increases his value by +15 at the end of round, oh, it also says glizzy overload.
+    key = 'glizzyjoker', --- Scores "chips", chips increases his value by +15 after selecting blind, oh, it also says glizzy overload.
     loc_txt = {        
         name = 'Glizzy Joker',
         text = {
             'Consumes {C:dark_edition}Glizzy{} and',
             'gains {C:chips}+#2#{} chips',
-            'at end of round',
+            'after selecting a blind',
             '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)'
         } 
     },
@@ -238,11 +235,17 @@ SMODS.Joker{
     end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and not context.blueprint then
+        if context.setting_blind and not context.blueprint then
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
+            card:juice_up(0.8, 0.8)
+            return {
+                    message = '+' .. card.ability.extra.chip_mod .. ' Chips',
+                    colour = G.C.CHIPS,
+                }
         end
         
-        if context.joker_main then --- THIS SHITS BROKEN AS FUCK I GOTTA GO EAT THOUGH SO I FIX LATER!!!!!!!!
+        
+        if context.joker_main then 
             return {
                 chips = card.ability.extra.chips,
                 message = 'GLIZZY OVERLOAD',
