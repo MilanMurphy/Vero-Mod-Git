@@ -108,7 +108,6 @@ SMODS.Joker{
             elseif selection > 75 and selection <= 95 then
                 return{
                 mult = modifier,
-                message = '+' .. modifier,
                 colour=G.C.MULT 
                 }
             else 
@@ -129,13 +128,13 @@ SMODS.Joker{
         text = {
             '{C:mult}+#2#{} mult',
             'At the end of each round,',
-            '{C:green}1 in #1#{} chance to remove all jokers in hand'
+            '{C:green}#3# in #1#{} chance to remove all jokers in hand'
         } 
     },
     atlas = 'Vero',
     blueprint_compat = false,
-    pos = {x = 3, y = 0},
-    rarity = 0,
+    pos = {x = 4, y = 0},
+    rarity = 1,
     cost = 2,
     config = { extra = {
         odds = 20,
@@ -143,17 +142,16 @@ SMODS.Joker{
         } 
     },
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.mult, (G.GAME.probabilities.normal or 1), card.ability.extra.odds}}
+        return {vars = {card.ability.extra.odds, card.ability.extra.mult, G.GAME.probabilities.normal}}
     end,
     calculate = function(self,card,context)
         if context.joker_main then
-            if pseudorandom('steelreaper') < G.GAME.probabilities.normal / card.ability.extra.odds then
+
                 return {
                     mult = card.ability.extra.mult,
-                    message = '+' .. card.ability.extra.mult,
                     colour=G.C.MULT
                 }
-            end
+         
         end
     end
 }
