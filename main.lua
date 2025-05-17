@@ -108,8 +108,6 @@ SMODS.Joker{
             elseif selection > 75 and selection <= 95 then
                 return{
                 mult = modifier,
-                message = '+' .. modifier,
-                colour=G.C.MULT 
                 }
             else 
                 return{
@@ -135,10 +133,10 @@ SMODS.Joker{
     atlas = 'Vero',
     blueprint_compat = false,
     pos = {x = 3, y = 0},
-    rarity = 0,
+    rarity = 1  ,
     cost = 2,
     config = { extra = {
-        odds = 20,
+        odds = 1,
         mult = 30   
         } 
     },
@@ -147,12 +145,21 @@ SMODS.Joker{
     end,
     calculate = function(self,card,context)
         if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             if pseudorandom('steelreaper') < G.GAME.probabilities.normal / card.ability.extra.odds then
-                return {
-                    mult = card.ability.extra.mult,
-                    message = '+' .. card.ability.extra.mult,
-                    colour=G.C.MULT
-                }
+                for i = 1, #G.jokers.cards do
+                    if G.jokers.cards[i] ~= card and not G.jokers.cards[i].ability.eternal and not G.jokers.cards[i].getting_sliced then
+                        destructable_jokers[#destructable_jokers + 1] =
+                            G.jokers.cards[i]
+                    end
+                end
+                for i = 1, #destructable_jokers do
+                    destructable_jokers[i]:destroy()
+                end
             end
         end
     end
