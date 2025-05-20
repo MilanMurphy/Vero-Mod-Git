@@ -25,7 +25,7 @@ SMODS.Joker{
     calculate = function(self,card,context)
         
         if context.end_of_round and not context.blueprint then
-        if pseudorandom('veroboarder') < G.GAME.probabilities.normal / card.ability.extra.odds then
+        if pseudorandom('steelreaper') < G.GAME.probabilities.normal / card.ability.extra.odds then
                 for _, area in ipairs({G.jokers}) do
                     for _, other_card in ipairs(area.cards) do
                         other_card:start_dissolve()
