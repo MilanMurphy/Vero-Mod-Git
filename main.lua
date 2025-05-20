@@ -8,3 +8,4 @@ if SMODS.Atlas then
 end
 
 assert(SMODS.load_file("src/jokers.lua"))()
+assert(SMODS.load_file("src/tarots.lua"))()

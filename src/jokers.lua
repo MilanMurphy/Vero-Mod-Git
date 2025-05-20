@@ -170,7 +170,7 @@ SMODS.Joker{
 }
 
 SMODS.Joker{
-    key = 'dragonfruitpack',
+    key = 'dragonfruitpack', --- 20x mult, -5 to hand size.
     loc_txt = {        
         name = 'Dragonfruit Pack',
         text = {
