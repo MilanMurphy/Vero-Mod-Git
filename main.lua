@@ -11,3 +11,5 @@ end
 assert(SMODS.load_file("src/jokers/jokers.lua"))() --- loads jokers
 
 assert(SMODS.load_file("src/glizzycons/glizzycons.lua"))() -- loads glizzycons
+
+assert(SMODS.load_file("src/ui/glizzy_ui.lua"))() -- loads ui shit
