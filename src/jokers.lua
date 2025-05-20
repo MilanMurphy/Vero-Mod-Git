@@ -1,9 +1,3 @@
-SMODS.Atlas{
-    key = 'Vero',
-    path = 'vero.png',
-    px = 71,
-    py = 95
-}
 
 SMODS.Joker{
     key = 'veroboarder', --- 50% chance to give a 2x multiplier.
